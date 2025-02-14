@@ -1,12 +1,14 @@
+import { CDN_URL } from "../utils/constants";
+
 const RestaurantCard = ({ resData }) => {
   const { name, cloudinaryImageId, cuisines, avgRating, costForTwo, sla } =
-    resData;
+    resData?.info;
 
   return (
     <div className="restaurant-card" style={{ backgroundColor: "#f0f0f0" }}>
       <img
         className="restaurant-logo"
-        src={`https://res.cloudinary.com/swigee/image/upload/${cloudinaryImageId}`}
+        src={CDN_URL + cloudinaryImageId}
         alt="Restaurant-logo"
         style={{ height: 150, width: 200, objectFit: "cover" }}
       />
