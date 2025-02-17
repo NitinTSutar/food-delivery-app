@@ -44,10 +44,11 @@
   display: flex;
 }
 .shimmer-card{
-  margin: 20px;
+  margin: 5px;
+  margin-top: 40px;
   width: 200px;
-  height: 400px;
-  background-color: gray;
+  height: 430px;
+  background-color: rgb(224, 222, 222);
 }
 .login-btn {
   padding: 0 20px;

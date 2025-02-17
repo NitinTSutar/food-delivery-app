@@ -42,7 +42,7 @@ const Body = () => {
             onClick={() => {
               // Filter the restaurants cards and upadte the UI
               const filteredRestaurant = listOfRestaurants.filter(
-                (res) => res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
               setSearchRestaurants(filteredRestaurant);  
             }}
@@ -64,7 +64,7 @@ const Body = () => {
       </div>
       <div className="restaurant-container">
         {searchRestaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+          <RestaurantCard key={restaurant.info?.id} resData={restaurant} />
         ))}
       </div>
     </div>
