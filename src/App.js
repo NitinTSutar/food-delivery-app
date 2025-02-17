@@ -5,24 +5,28 @@ import Body from "./components/Body";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router";
-
+import { BrowserRouter, Routes, Route } from "react-router";
+import { Outlet } from "react-router";
+import RestaurantMenu from "./components/RestaurantMenu";
 
 const AppLayout = () => (
   <div className="app">
     <Header />
-    <Outlet />
-
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Body />} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="*" element={<Error />} />
-      </Routes>
-    </BrowserRouter>
+    <Outlet /> {/* This renders child routes dynamically */}
   </div>
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+root.render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<AppLayout />}>
+        <Route index element={<Body />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="restaurants/:resId" element={<RestaurantMenu />} />
+        <Route path="*" element={<Error />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
+);
