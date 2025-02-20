@@ -5,14 +5,14 @@ const RestaurantCard = ({ resData }) => {
     resData?.info;
 
   return (
-    <div className="restaurant-card" style={{ backgroundColor: "#f0f0f0" }}>
+    <div className="m-4 p-4 w-[240px] rounded-xl bg-gray-100 hover:bg-gray-200">
       <img
-        className="restaurant-logo"
+        className="rounded-lg"
         src={CDN_URL + cloudinaryImageId}
         alt="Restaurant-logo"
         style={{ height: 150, width: 200, objectFit: "cover" }}
       />
-      <h3>{name}</h3>
+      <h3 className="font-bold py-4 text-lg">{name}</h3>
       <h4>{cuisines?.join(", ")}</h4>
       <h4>{avgRating} ⭐</h4>
       <h4>{costForTwo}</h4>
@@ -20,5 +20,18 @@ const RestaurantCard = ({ resData }) => {
     </div>
   );
 };
+
+// Higher order Component
+
+// export const withPromotedLabel = (RestaurantCard) => {
+//   return () => {
+//     return (
+//       <div>
+//         <label>Promoted</label>
+//         <RestaurantCard />
+//       </div>
+//     )
+//   }
+// }
 
 export default RestaurantCard;

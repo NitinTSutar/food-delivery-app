@@ -10,6 +10,8 @@ const Body = () => {
 
   const [searchText, setSearchText] = useState("");
 
+  // const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -22,14 +24,17 @@ const Body = () => {
     const json = await response.json();
 
     setListOfRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setSearchRestaurants(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
   const onlineStatus = useOnlineStatus();
+
+
+  const [filterStatus, setFilterStatus] = useState(true);
 
   if (onlineStatus === false)
     return (
@@ -38,22 +43,22 @@ const Body = () => {
       </h1>
     );
 
-  return listOfRestaurants.length === 0 ? (
+  return !searchRestaurants || searchRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="filter flex items-center h-20">
+        <div className="search m-4 p-4">
           <input
             type="text"
-            placeholder="Search by restaurant name"
-            className="search-box"
+            className="search border-1 border-black rounded-lg"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
+            className="px-5 py-1 cursor-pointer bg-green-100 hover:bg-green-200 m-4 rounded-lg"
             onClick={() => {
               // Filter the restaurants cards and upadte the UI
               const filteredRestaurant = listOfRestaurants.filter((res) =>
@@ -65,25 +70,34 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filteredList = listOfRestaurants.filter(
-              (res) => res.info.avgRating > 4
-            );
-            setFilteredRestaurants(filteredList);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+        <div>
+          <button
+            className="px-5 py-1 cursor-pointer bg-green-100 m-2 rounded-lg hover:bg-green-200"
+            onClick={() => {
+              const filteredList = listOfRestaurants.filter(
+                filterStatus
+                  ? (res) => res.info.avgRating > 4.5
+                  : (res) => res.info.avgRating > 0
+              );
+              filterStatus ? setFilterStatus(false) : setFilterStatus(true);
+              console.log(filterStatus);
+              setSearchRestaurants(filteredList);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="restaurant-container">
-        {searchRestaurants.map((restaurant) => (
+      <div className="flex flex-wrap">
+        {searchRestaurants?.map((restaurant) => (
           <Link
             key={restaurant.info?.id}
             to={"/restaurants/" + restaurant.info?.id}
           >
             <RestaurantCard resData={restaurant} />
+            {/* {
+              restaurant.info.isOpen ? <RestaurantCardPromoted resData={restaurant} /> : <RestaurantCard resData={restaurant} />
+            } */}
           </Link>
         ))}
       </div>
