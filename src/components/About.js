@@ -8,34 +8,15 @@ class About extends React.Component{
     super(props);
   }
 
-  ComponentDidMount() {}
 
   render() {
     return (
-            <div>
-              <h1>About</h1>
-              <div>
-                LoggedIn User
-                <UserContext.Consumer >
-                  {({loggedInUser}) => <h1>{loggedInUser}</h1>}
-                </UserContext.Consumer>
-              </div>
-              <h2>This is Nameste React React Series</h2>
+            <div className="flex flex-col justify-center items-center">
               <UserClass name={"Nitin Sutar"} location={"Sumerpur"}/>
             </div>
           );
         }
 };
 
-// const About = () => {
-//   return (
-//     <div>
-//       <h1>About</h1>
-//       <h2>This is Nameste React React Series</h2>
-
-//       <UserClass name={"Nitin Sutar"} location={"Sumerpur"}/>
-//     </div>
-//   );
-// };
 
 export default About;

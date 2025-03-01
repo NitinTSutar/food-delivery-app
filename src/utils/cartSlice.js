@@ -1,32 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Load cart items from localStorage
+const loadCartFromLocalStorage = () => {
+    try {
+        const savedCart = localStorage.getItem("cartItems");
+        return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+        console.error("Error loading cart from localStorage", error);
+        return [];
+    }
+};
+
+// Save cart items to localStorage
+const saveCartToLocalStorage = (cartItems) => {
+    try {
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    } catch (error) {
+        console.error("Error saving cart to localStorage", error);
+    }
+};
+
 const cartSlice = createSlice({
-  name: "cart",
-  initialState: {
-    items: [],
-  },
-  reducers: {
-    addItem: (state, action) => {
-
-        // vanilla(older) redux => don't mutate the state, returning is mandatory
-        // const newState = [...state.items];
-        // newState.items.push(action.payload);
-        // return newState;
-
-
-        // mutating the state here
-      state.items.push(action.payload);
+    name: "cart",
+    initialState: {
+        items: loadCartFromLocalStorage(),
     },
-    removeItem: (state) => {
-      state.items.pop();
+    reducers: {
+        addItem: (state, action) => {
+            state.items.push(action.payload);
+            saveCartToLocalStorage(state.items); // Save updated cart
+        },
+        removeItem: (state) => {
+            state.items.pop();
+            saveCartToLocalStorage(state.items); // Save updated cart
+        },
+        clearCart: (state) => {
+            state.items = []; // Mutate state correctly
+            saveCartToLocalStorage([]); // Save empty cart
+        },
     },
-    clearCart: (state) => {
-      state.items.length = 0;
-      // return { items: []};
-    },
-  },
 });
 
-export const {addItem, removeItem, clearCart} = cartSlice.actions
-
+export const { addItem, removeItem, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

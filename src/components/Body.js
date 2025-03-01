@@ -32,6 +32,18 @@ const Body = () => {
     );
   };
 
+  let a = 4;
+  let b = 7;
+
+  // a = a ^ b;
+
+  // b = a ^ b;
+
+  // a = a ^ b;
+  [a, b] = [b, a];
+
+  console.log(a, b);
+
   const onlineStatus = useOnlineStatus();
 
   const [filterStatus, setFilterStatus] = useState(true);
@@ -62,7 +74,7 @@ const Body = () => {
           <button
             className="px-5 py-1 cursor-pointer bg-green-100 hover:bg-green-200 m-4 rounded-lg"
             onClick={() => {
-              // Filter the restaurants cards and upadte the UI
+              // Filter the restaurants cards and update the UI
               const filteredRestaurant = listOfRestaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
@@ -74,7 +86,7 @@ const Body = () => {
         </div>
         <div>
           <button
-            className="px-5 py-1 cursor-pointer bg-green-100 m-2 rounded-lg hover:bg-green-200"
+            className="px-5 py-1 cursor-pointer bg-green-100  rounded-lg hover:bg-green-200"
             onClick={() => {
               const filteredList = listOfRestaurants.filter(
                 filterStatus
@@ -89,16 +101,16 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
-        <div className="m-4 p-4 flex items-center ">
+        {/* <div className="m-4 p-4 flex items-center ">
           <label>User Name : </label>
           <input
             className="border-black border-1 rounded-lg p-1 ml-2"
             value={loggedInUser}
             onChange={(e) => setUserName(e.target.value)}
           ></input>
-        </div>
+        </div> */}
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-around">
         {searchRestaurants?.map((restaurant) => (
           <Link
             key={restaurant.info?.id}

@@ -2,7 +2,6 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
-import Contact from "./components/Contact";
 import Error from "./components/Error";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Outlet } from "react-router";
@@ -13,7 +12,6 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
 
-const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
@@ -52,15 +50,7 @@ root.render(
             </Suspense>
           }
         />
-        <Route path="contact" element={<Contact />} />
-        <Route
-          path="grocery"
-          element={
-            <Suspense fallback={<Shimmer />}>
-              <Grocery />
-            </Suspense>
-          }
-        />
+
         <Route path="restaurants/:resId" element={<RestaurantMenu />} />
         <Route path="cart" element={<Cart />} />
         <Route path="*" element={<Error />} />

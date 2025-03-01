@@ -1,17 +1,25 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CDN_URL } from "../utils/constants";
-import { addItem } from "../utils/cartSlice";
+import { addItem, removeItem } from "../utils/cartSlice";
 
 const ItemList = ({ items }) => {
   const dispatch = useDispatch();
+  const cartItems = useSelector((store) => store.cart.items);
 
   const handleAddItem = (item) => {
-    // Dispatch an action
     dispatch(addItem(item));
   };
 
+  const handleRemoveItem = (item) => {
+    dispatch(removeItem(item));
+  };
+
+  const isItemInCart = (item) => {
+    return cartItems.some(cartItem => cartItem.card.info.id === item.card.info.id);
+  };
+
   return (
-    <div>
+    <div className="basis-80">
       {items.map((item) => (
         <div
           key={item.card.info.id}
@@ -29,19 +37,30 @@ const ItemList = ({ items }) => {
             </div>
             <p className="text-xs">{item.card.info.description}</p>
           </div>
-          <div className="w-3/12 p-4">
-            <div className="absolute">
-              <button
-                className="p-2 mx-8 rounded-lg bg-black text-white shadow-lg cursor-pointer"
-                onClick={() => handleAddItem(item)}
-              >
-                Add to Cart
-              </button>
-            </div>
+          <div className="p-4">
+            {isItemInCart(item) ? (
+              <div className="relative">
+                <button
+                  className="p-1 mx-2 rounded-lg top-25 absolute bg-black text-white shadow-lg cursor-pointer"
+                  onClick={() => handleRemoveItem(item)}
+                >
+                  Remove from Cart
+                </button>
+              </div>
+            ) : (
+              <div className="relative">
+                <button
+                  className="p-1 mx-2 rounded-lg top-25 absolute bg-black text-white shadow-lg cursor-pointer"
+                  onClick={() => handleAddItem(item)}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            )}
             <img
               src={CDN_URL + item.card.info.imageId}
               alt={item.card.info.name}
-              className="w-full"
+              className="w-30"
             />
           </div>
         </div>
