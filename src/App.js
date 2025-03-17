@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Error from "./components/Error";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { HashRouter as Router, Routes, Route } from "react-router";
 import { Outlet } from "react-router";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Shimmer from "./components/Shimmer";
@@ -38,7 +38,7 @@ const AppLayout = () => {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
+  <Router>
     <Routes>
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Body />} />
@@ -56,5 +56,5 @@ root.render(
         <Route path="*" element={<Error />} />
       </Route>
     </Routes>
-  </BrowserRouter>
+  </Router>
 );

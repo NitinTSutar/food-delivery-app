@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
 
+
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurant] = useState([]);
   const [searchRestaurants, setSearchRestaurants] = useState([]);
@@ -101,14 +102,6 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
-        {/* <div className="m-4 p-4 flex items-center ">
-          <label>User Name : </label>
-          <input
-            className="border-black border-1 rounded-lg p-1 ml-2"
-            value={loggedInUser}
-            onChange={(e) => setUserName(e.target.value)}
-          ></input>
-        </div> */}
       </div>
       <div className="flex flex-wrap justify-around">
         {searchRestaurants?.map((restaurant) => (
@@ -117,9 +110,6 @@ const Body = () => {
             to={"/restaurants/" + restaurant.info?.id}
           >
             <RestaurantCard resData={restaurant} />
-            {/* {
-              restaurant.info.isOpen ? <RestaurantCardPromoted resData={restaurant} /> : <RestaurantCard resData={restaurant} />
-            } */}
           </Link>
         ))}
       </div>
