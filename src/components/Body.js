@@ -10,12 +10,16 @@ const Body = () => {
   const [listOfRestaurants, setListOfRestaurant] = useState([]);
   const [searchRestaurants, setSearchRestaurants] = useState([]);
 
+
+  const a =11; 
+
   const [searchText, setSearchText] = useState("");
 
-  // const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+  
 
   useEffect(() => {
     fetchData();
+    
   }, []);
 
   const fetchData = async () => {
@@ -32,18 +36,6 @@ const Body = () => {
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
-
-  let a = 4;
-  let b = 7;
-
-  // a = a ^ b;
-
-  // b = a ^ b;
-
-  // a = a ^ b;
-  [a, b] = [b, a];
-
-  console.log(a, b);
 
   const onlineStatus = useOnlineStatus();
 
